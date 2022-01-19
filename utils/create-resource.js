@@ -5,6 +5,11 @@ const { createAudioResource } = require('@discordjs/voice')
 module.exports = async function createResource(res) {
     let { stream, type } = await play.stream(res.link)
 
+    if((res.bass === '0') && (res.treble === '0')){
+        const resource = createAudioResource(stream, { type: type })
+        return resource
+    }
+
     let ffmped_args = [
         '-analyzeduration', '0',
         '-loglevel', '0',
@@ -12,6 +17,7 @@ module.exports = async function createResource(res) {
         '-ar', '48000',
         '-ac', '2',
     ]
+
     let encoderstr = ''
     if (!(res.bass === '0')) {
         encoderstr = encoderstr + `bass=g=${res.bass}`
@@ -22,10 +28,7 @@ module.exports = async function createResource(res) {
         encoderstr = encoderstr + `,treble=g=${res.treble}`
     }
 
-    if(!(res.bass === '0') || !(res.treble === '0')){
-        encoder_args = ['-af', encoderstr]
-        ffmped_args = ffmped_args.concat(encoder_args)
-    }
+    ffmped_args = ffmped_args.concat(['-af', encoderstr])
 
     let transcoder = new FFmpeg({
         args: ffmped_args
@@ -48,6 +51,5 @@ module.exports = async function createResource(res) {
     });
 
     const resource = createAudioResource(outputStream, { type: type })
-
     return resource
 }
