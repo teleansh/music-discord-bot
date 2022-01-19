@@ -34,6 +34,12 @@ nodemon
 npm start
 ```
 
+# Contrbuting guidelines
+- Please raise pull requests to development branch
+- Helpful git commands can be found in this [website](https://shobhi1310.github.io/contributions/CONTRIBUTING.html)
+- If pull requests are raised into main branch they will be rejected
+- Please feel free to raise [issues](https://github.com/darahask/music-discord-bot/issues) if you want to improve anything in particular
+
 # Bot commands
 - !help
 - !play url or name
