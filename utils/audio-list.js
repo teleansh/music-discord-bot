@@ -1,14 +1,4 @@
 const play = require('play-dl')
-require('dotenv').config();
-
-play.setToken({
-    spotify: {
-        client_id: process.env.CLIENT_ID,
-        client_secret: process.env.CLIENT_SECRET,
-        refresh_token: process.env.REFRESH_TOKEN,
-        market: 'IN'
-    }
-})
 
 function validURL(str) {
     var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
@@ -63,7 +53,6 @@ async function createResourceList(args, bass, treble) {
                         bass: bass,
                         treble: treble
                     }
-                    console.log(audioResource)
                     resourceQueue.push(audioResource)
                 }
 
