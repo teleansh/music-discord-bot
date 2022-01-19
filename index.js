@@ -6,7 +6,7 @@ const { joinVoiceChannel,
 const play = require('play-dl')
 const createUrlList = require('./utils/audio-list')
 const createResource = require('./utils/create-resource')
-const {getHelpEmbed, getListEmbed} = require('./utils/message-embed')
+const { getHelpEmbed, getListEmbed } = require('./utils/message-embed')
 
 play.setToken({
     spotify: {
@@ -75,7 +75,7 @@ client.on("messageCreate", async msg => {
             temp.audioPlayer.play(await createResource(res.shift()))
 
             temp.audioPlayer.on('stateChange', async (oldState, newState) => {
-                if (oldState.status === AudioPlayerStatus.Idle && newState.status === AudioPlayerStatus.Idle) {
+                if (oldState.status === AudioPlayerStatus.Playing && newState.status === AudioPlayerStatus.Idle) {
                     let song_list = getResourceQueue(msg.guild.id)
                     if (song_list.length !== 0) {
                         temp.audioPlayer.play(await createResource(song_list.shift()))
@@ -83,8 +83,6 @@ client.on("messageCreate", async msg => {
                     } else {
                         console.log('Finished Playing songs!!!');
                     }
-                } else if (oldState.status === AudioPlayerStatus.Playing && newState.status === AudioPlayerStatus.Idle) {
-                    console.log('Stopped playing!!!')
                 }
             })
             temp.audioPlayer.on("error", (error) => { console.log(error) })
@@ -98,7 +96,7 @@ client.on("messageCreate", async msg => {
                 msg.reply('Please enter song name or song url 🥺')
                 return
             }
-            
+
             let a = getaudioFilters(msg.guild.id)
             let res = await createUrlList(args, a.bass, a.treble)
             let song_list = getResourceQueue(msg.guild.id)
@@ -121,11 +119,8 @@ client.on("messageCreate", async msg => {
             playerObj.get(msg.guild.id).audioPlayer.unpause()
 
         } else if (msg.content === '!stop') {
-            playerObj.get(msg.guild.id).audioPlayer.stop()
-
-        } else if (msg.content === '!leave') {
             playerObj.get(msg.guild.id).connection.destroy()
-
+            
         } else if (msg.content.startsWith('!bass')) {
             let args = msg.content.split('bass')[1]
             if (!args) {
@@ -133,7 +128,7 @@ client.on("messageCreate", async msg => {
                 return
             }
             let a = getaudioFilters(msg.guild.id)
-            audioFilters.set(msg.guild.id,{...a,bass:args.trim()})
+            audioFilters.set(msg.guild.id, { ...a, bass: args.trim() })
 
         } else if (msg.content.startsWith('!treble')) {
             let args = msg.content.split('treble')[1]
@@ -142,14 +137,16 @@ client.on("messageCreate", async msg => {
                 return
             }
             let a = getaudioFilters(msg.guild.id)
-            audioFilters.set(msg.guild.id,{...a,treble:args.trim()})
+            audioFilters.set(msg.guild.id, { ...a, treble: args.trim() })
         } else if (msg.content === '!list') {
-            msg.channel.send({embeds:[getListEmbed(getResourceQueue(msg.guild.id))]})
+            msg.channel.send({ embeds: [getListEmbed(getResourceQueue(msg.guild.id))] })
         } else if (msg.content === '!delete') {
             await msg.delete()
             let msgs = await msg.channel.messages.fetch({ limit: 100 })
             msg.channel.bulkDelete(msgs)
 
+        } else if (msg.content === '!clear') {
+            resourceQueue.set(msg.guild.id, [])
         }
     } catch (error) {
         console.log(error)

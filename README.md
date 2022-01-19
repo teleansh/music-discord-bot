@@ -12,7 +12,7 @@ Join my personal discord [server](https://discord.gg/cSuKhuEUtD) for support.
 - !pause
 - !resume
 - !stop
-- !leave
+- !clear clears the song queue
 - !bass value between -20 to +20
 - !treble value between -20 to +20
 
