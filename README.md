@@ -38,6 +38,11 @@ REFRESH_TOKEN=xxx
 ![Required Permissions image](./images/permissions.png)
 
 # Running
+Run these commands in root directory
+- Install dependencies
+```
+npm install
+```
 - One can install nodemon globally and use it
 ```
 sudo npm i -g nodemon
