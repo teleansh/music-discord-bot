@@ -1,12 +1,26 @@
 # music-discord-bot
 Discord music bot backend to play music from youtube and spotify
 
+# Support
+Join my personal discord [server](https://discord.gg/cSuKhuEUtD) for support.
+
+# Bot commands
+- !help
+- !play url or name
+- !add  url or name
+- !next
+- !pause
+- !resume
+- !stop
+- !leave
+- !bass value between -20 to +20
+- !treble value between -20 to +20
+
+#### PS: Url can be any youtube video link or any spotify link(song,album,playlist)
+
 # Requirements
 - Node >= v16
-- Can be downloaded from official node [webpage]()
-
-# Bot Permissons
-![Required Permissions image](./images/permissions.png)
+- Can be downloaded from official node [webpage](https://nodejs.org/en/)
 
 # Setup
 - Login to discord developer portal to get your own bot client token
@@ -20,6 +34,9 @@ CLIENT_ID=xxx
 CLIENT_SECRET=xxx
 REFRESH_TOKEN=xxx
 ```
+# Minimum bot Permissons
+![Required Permissions image](./images/permissions.png)
+
 # Running
 - One can install nodemon globally and use it
 ```
@@ -40,22 +57,5 @@ npm start
 - If pull requests are raised into main branch they will be rejected
 - Please feel free to raise [issues](https://github.com/darahask/music-discord-bot/issues) if you want to improve anything in particular
 
-# Bot commands
-- !help
-- !play url or name
-- !add  url or name
-- !next
-- !pause
-- !resume
-- !stop
-- !leave
-- !bass value between -20 to +20
-- !treble value between -20 to +20
-
-#### PS: Url can be any youtube video link or any spotify link(song,album,playlist)
-
-# Support
-Join my personal discord [server](https://discord.gg/cSuKhuEUtD) for support.
-
 # Contributors
-### [Darahas Kopparapu](https://github.com/darahask)
+#### [Darahas Kopparapu](https://github.com/darahask)
